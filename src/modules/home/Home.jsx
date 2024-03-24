@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import RideForm from "./RideForm";
+import Profile from "./Profile"
 import Modal from "../../components/Modal";
 import RideConfirmation from "../../components/RideConfirmation";
 
@@ -20,9 +21,9 @@ const HomePage = () => {
   }
   
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <nav className="bg-primary shadow-md">
-        <div className="container mx-auto px-4 py-2 sm:px-0 ">
+    <div className="bg-gray-100 flex flex-col h-screen">
+      <nav className="bg-primary py-2 px-5 shadow-md">
+        <div className="container-fluid mx-auto px-4 py-2 sm:px-0">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-semibold text-white">Dashboard</h1>
             <Link to="/logout" className="text-gray-200 hover:underline">
@@ -31,9 +32,9 @@ const HomePage = () => {
           </div>
         </div>
       </nav>
-      <div className="container mx-auto px-4 py-8 md:px-4 md:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:grid-rows-3">
-        <div className="bg-white rounded-lg shadow-md p-6 row-span-3 col-span-1">
+      <main className="flex-1 overflow-y-auto p-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:grid-rows-2">
+        <div className="bg-white rounded-lg shadow-md p-6 row-span-1 col-span-1">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold text-gray-800">Rides</h2>
               <svg
@@ -54,8 +55,7 @@ const HomePage = () => {
             <RideForm onSubmitForm={onSubmitForm} setRideFormValues={setRideFormValues} />
         
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6 row-span-1 col-span-1">
-            <div className="flex items-center justify-between mb-4">
+            {/* <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold text-gray-800">Profile</h2>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,10 +74,10 @@ const HomePage = () => {
             </div>
             <p className="text-gray-600">
               View and update your profile information.
-            </p>
-          </div>
+            </p> */}
+            <Profile/>
          
-          <div className="bg-white rounded-lg shadow-md p-6 row-span-1 col-span-1">
+          {/* <div className="bg-white rounded-lg shadow-md p-6 row-span-1 col-span-1">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold text-gray-800">Payments</h2>
               <svg
@@ -98,9 +98,9 @@ const HomePage = () => {
             <p className="text-gray-600">
               Manage your payment methods and view transaction history.
             </p>
-          </div>
+          </div> */}
         </div>
-      </div>
+      </main>
       <Modal title="Ride Confirmation" isOpen={isOpen} setIsOpen={setIsOpen} onSubmit={()=>{
         onConfirm("hhhh")
       }}>

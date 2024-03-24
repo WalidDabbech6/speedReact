@@ -10,9 +10,12 @@ function useLogin() {
   const { mutate, isLoading, isError,error } = useMutation((credentials) => login(credentials),
    {
     onSuccess: (data) => {
+      const {accessToken,user} = data
       // Store token in localStorage or sessionStorage
-      authentication();
-      localStorage.setItem('token', data.accessToken);
+      authentication(user);
+      localStorage.setItem('token', accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
+
       // Invalidate queries to trigger refetch of data
       queryClient.invalidateQueries('userData');
     }

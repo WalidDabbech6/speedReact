@@ -7,6 +7,7 @@ import OtpInput from "../../components/OtpInput";
 import OtpPage from "../../components/OtpPage";
 import Modal from "../../components/Modal";
 import { Link } from 'react-router-dom';
+import AuthLayout from "./AuthLayout";
 
 const schema = yup
   .object({
@@ -120,7 +121,7 @@ const InscriptionPage = () => {
             </button>
           </div>
         </form>
-        <Modal isOpen={true} onSubmit={()=>{onSubmit({otp:otp})}}>
+        <Modal isOpen={success} onSubmit={()=>{onSubmit({otp:otp})}}>
         {({handleSubmit})=>(
                          <OtpPage onClick={handleSubmit}>
                          <OtpInput numInputs={4} onChange={handleOtpChange} />
@@ -132,10 +133,11 @@ const InscriptionPage = () => {
             </OtpPage>
               </Modal> */}
                  <p className="text-gray-600 mt-4">Already have an account? 
-        <Link to="/login" className="text-blue-500 ml-1 hover:underline">Login here</Link>
+        <Link to="../login" className="text-blue-500 ml-1 hover:underline">Login here</Link>
          </p>
         </div>
    );
+   
 };
 
 export default InscriptionPage;

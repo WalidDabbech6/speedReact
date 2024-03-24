@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { objectToFormData } from '../helpers/ObjectToFormData';
+import _ from "lodash";
 
 const baseURL = 'http://localhost:8000/api'; // Replace this with your actual API URL
 
@@ -21,12 +23,28 @@ export const login = async (credentials) => {
 
 export const register = async (data) => {
   try {
-    const response = await axiosInstance.post('/register', {...data});
+    const response = await axiosInstance.post('/register', {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);
   }
 };
+
+
+export const updateProfile = async (data) => {
+  let headers = {}
+  headers['Content-Type'] = 'multipart/form-data'
+  headers['Authorization'] = localStorage.getItem('token')
+
+  let payload = objectToFormData(_.mapKeys(data, (value, key) => _.snakeCase(key)))
+  try {
+    const response = await axiosInstance.patch('/updateProfile', payload,{headers:headers});
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 
 export const getPrice = async (data) => {
   try {

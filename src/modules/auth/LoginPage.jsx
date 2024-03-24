@@ -6,7 +6,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from './context/AuthContext';
 import { Link } from 'react-router-dom';
-
+import AuthLayout from './AuthLayout';
+import pages from "./page"
 
 const validationSchema = yup
 .object({
@@ -32,11 +33,10 @@ function LoginPage() {
   return (
     
 
-
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
           <h1 className="text-3xl font-semibold mb-8 text-primary text-center">Login</h1>
           <p className="text-gray-600 mb-4">Don't have an account? 
-        <Link to="/register" className="text-blue-500 ml-1 hover:underline">Register here</Link>
+        <Link to={"../register"} className="text-blue-500 ml-1 hover:underline">Register here</Link>
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-6">

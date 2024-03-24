@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useGetPrice from "../../hooks/useGetPrice";
 import TimePicker from "../../components/TimePicker";
+import Spinner from "../../components/Spinner";
+import {destinations,orgins} from "../../../public/constants.js";
 const validationSchema = yup
   .object({
     origin: yup.string().required("Origin is required"),
@@ -33,9 +35,8 @@ const RideForm = ({onSubmitForm,setRideFormValues}) => {
       time: undefined,
     },
   });
-  const { mutate,success } = useGetPrice(onSubmitForm);
+  const { mutate,isLoading,success } = useGetPrice(onSubmitForm);
 
-  const watchTime = watch("time", false)
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) =>
       console.log(value, name, type)
@@ -43,174 +44,7 @@ const RideForm = ({onSubmitForm,setRideFormValues}) => {
     return () => subscription.unsubscribe()
   }, [watch])
   
-  let orgins = [
-    {
-    label: "Aéorport Tunis Carthage",
-    options:[
-      { value: "TUN", label: "Tunis Airport" },
-      // { value: "DJE", label: "Melita" },
-      // { value: "MIR", label: "Monastir Airport" },
-      // { value: "NBE", label: "Enfidha-Hammamet Int" },
-      // { value: "SFA", label: "Sfax El Maou" },
-      // { value: "TOE", label: "Tozeur Airport" },
-    ]
-    },
-    {
-      label: "Grand Tunis",
-      options: [
-        { value: "Centre Ville", label: "Centre Ville" },
-        { value: "LAC 1", label: "LAC 1" },
-        { value: "LAC 2", label: "LAC 2" },
-        { value: "LAC 3", label: "LAC 3" },
-        { value: "El Kram", label: "El Kram" },
-        { value: "La goulette", label: "La goulette" },
-        { value: "Sidi Bousaîd", label: "Sidi Bousaîd" },
-        { value: "Gammarth", label: "Gammarth" },
-        { value: "Carthage", label: "Carthage" },
-        { value: "Jardins Carthage", label: "Jardins Carthage" },
-        { value: "L'aouina", label: "L'aouina" },
-        { value: "La Soukra", label: "La Soukra" },
-        { value: "Enkhilet", label: "Enkhilet" },
-        { value: "ElGhazela", label: "ElGhazela" },
-        { value: "Géant", label: "Géant" },
-        { value: "Sidi Thabet", label: "Sidi Thabet" },
-        { value: "Sidi Hssin", label: "Sidi Hssin" },
-        { value: "Jdaida", label: "Jdaida" },
-        { value: "Wed El lil", label: "Wed El lil" },
-        { value: "Ettahrir", label: "Ettahrir" },
-        { value: "Intilaka", label: "Intilaka" },
-        { value: "Ettadhamen", label: "Ettadhamen" },
-        { value: "Ibn Khaldoun", label: "Ibn Khaldoun" },
-        { value: "Mnihla", label: "Mnihla" },
-        { value: "Bardo", label: "Bardo" },
-        { value: "Danden", label: "Danden" },
-        { value: "Beb El Khadhra", label: "Beb El Khadhra" },
-        { value: "Mornaguia", label: "Mornaguia" },
-        { value: "Beb Saadoun", label: "Beb Saadoun" },
-        { value: "Moncef Bey", label: "Moncef Bey" },
-        { value: "El madina el jadida", label: "El madina el jadida" },
-        { value: "Ben aarouss", label: "Ben aarouss" },
-        { value: "Rades", label: "Rades" },
-        { value: "Ezzahra", label: "Ezzahra" },
-        { value: "Fouchana", label: "Fouchana" },
-        { value: "Jbal Rassas", label: "Jbal Rassas" },
-        { value: "Jbal jloud", label: "Jbal jloud" },
-        { value: "Hammem lif", label: "Hammem lif" },
-        { value: "Borj Esidria", label: "Borj Esidria" },
-        { value: "Tbolba", label: "Tbolba" },
-      ],
-    },
-   {
-    label: "Autre Gouvernorat",
-    options: [
-      { value: "Béja", label: "Béja" },
-        { value: "Bizerte", label: "Bizerte" },
-        { value: "Gabès", label: "Gabès" },
-        { value: "Gafsa", label: "Gafsa" },
-        { value: "Jendouba", label: "Jendouba" },
-        { value: "Kairouan", label: "Kairouan" },
-        { value: "Kasserine	", label: "Kasserine" },
-        { value: "Kebili", label: "Kebili" },
-        { value: "Kef", label: "Kef" },
-        { value: "Mahdia", label: "Mahdia" },
-        { value: "Medenine", label: "Medenine" },
-        { value: "Monastir", label: "Monastir" },
-        { value: "Nabeul", label: "Nabeul" },
-        { value: "Sfax", label: "Sfax" },
-        { value: "Sidi Bouzid", label: "Sidi Bouzid" },
-        { value: "Siliana", label: "Siliana" },
-        { value: "Sousse", label: "Sousse" },
-        { value: "Tataouine", label: "Tataouine" },
-        { value: "Tozeur", label: "Tozeur" },
-        { value: "Zaghouan", label: "Zaghouan" },
-    ]
-   },
-  ];
-
-  let destinations = [
-    {
-      label: "Aéorport Tunis Carthage",
-      options:[
-        { value: "TUN", label: "Tunis Airport" },
-        // { value: "DJE", label: "Melita" },
-        // { value: "MIR", label: "Monastir Airport" },
-        // { value: "NBE", label: "Enfidha-Hammamet Int" },
-        // { value: "SFA", label: "Sfax El Maou" },
-        // { value: "TOE", label: "Tozeur Airport" },
-      ]
-      },
-      {
-        label: "Grand Tunis",
-        options: [
-          { value: "Centre Ville", label: "Centre Ville" },
-          { value: "LAC 1", label: "LAC 1" },
-          { value: "LAC 2", label: "LAC 2" },
-          { value: "LAC 3", label: "LAC 3" },
-          { value: "El Kram", label: "El Kram" },
-          { value: "La goulette", label: "La goulette" },
-          { value: "Sidi Bousaîd", label: "Sidi Bousaîd" },
-          { value: "Gammarth", label: "Gammarth" },
-          { value: "Carthage", label: "Carthage" },
-          { value: "Jardins Carthage", label: "Jardins Carthage" },
-          { value: "L'aouina", label: "L'aouina" },
-          { value: "La Soukra", label: "La Soukra" },
-          { value: "Enkhilet", label: "Enkhilet" },
-          { value: "ElGhazela", label: "ElGhazela" },
-          { value: "Géant", label: "Géant" },
-          { value: "Sidi Thabet", label: "Sidi Thabet" },
-          { value: "Sidi Hssin", label: "Sidi Hssin" },
-          { value: "Jdaida", label: "Jdaida" },
-          { value: "Wed El lil", label: "Wed El lil" },
-          { value: "Ettahrir", label: "Ettahrir" },
-          { value: "Intilaka", label: "Intilaka" },
-          { value: "Ettadhamen", label: "Ettadhamen" },
-          { value: "Ibn Khaldoun", label: "Ibn Khaldoun" },
-          { value: "Mnihla", label: "Mnihla" },
-          { value: "Bardo", label: "Bardo" },
-          { value: "Danden", label: "Danden" },
-          { value: "Beb El Khadhra", label: "Beb El Khadhra" },
-          { value: "Mornaguia", label: "Mornaguia" },
-          { value: "Beb Saadoun", label: "Beb Saadoun" },
-          { value: "Moncef Bey", label: "Moncef Bey" },
-          { value: "El madina el jadida", label: "El madina el jadida" },
-          { value: "Ben aarouss", label: "Ben aarouss" },
-          { value: "Rades", label: "Rades" },
-          { value: "Ezzahra", label: "Ezzahra" },
-          { value: "Fouchana", label: "Fouchana" },
-          { value: "Jbal Rassas", label: "Jbal Rassas" },
-          { value: "Jbal jloud", label: "Jbal jloud" },
-          { value: "Hammem lif", label: "Hammem lif" },
-          { value: "Borj Esidria", label: "Borj Esidria" },
-          { value: "Tbolba", label: "Tbolba" },
-        ],
-      },
-     {
-      label: "Autre Gouvernorat",
-      options: [
-        { value: "Béja", label: "Béja" },
-          { value: "Bizerte", label: "Bizerte" },
-          { value: "Gabès", label: "Gabès" },
-          { value: "Gafsa", label: "Gafsa" },
-          { value: "Jendouba", label: "Jendouba" },
-          { value: "Kairouan", label: "Kairouan" },
-          { value: "Kasserine	", label: "Kasserine" },
-          { value: "Kebili", label: "Kebili" },
-          { value: "Kef", label: "Kef" },
-          { value: "Mahdia", label: "Mahdia" },
-          { value: "Medenine", label: "Medenine" },
-          { value: "Monastir", label: "Monastir" },
-          { value: "Nabeul", label: "Nabeul" },
-          { value: "Sfax", label: "Sfax" },
-          { value: "Sidi Bouzid", label: "Sidi Bouzid" },
-          { value: "Siliana", label: "Siliana" },
-          { value: "Sousse", label: "Sousse" },
-          { value: "Tataouine", label: "Tataouine" },
-          { value: "Tozeur", label: "Tozeur" },
-          { value: "Zaghouan", label: "Zaghouan" },
-      ]
-     },
-  ];
-
+ 
   const [date, setDate] = useState({
     startDate: undefined,
     endDate: new Date().setMonth(11),
@@ -422,8 +256,10 @@ useEffect(() => {
         <div>
           <button
             type="submit"
+            disabled={isLoading}
             className="group mt-8 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
+            {isLoading  && <Spinner/>}
             Reserve
           </button>
         </div>

@@ -9,8 +9,8 @@ const Modal = ({ isOpen,title="",setIsOpen, onClose, onSubmit ,children}) => {
     onClose && onClose();
   };
 
-  const handleSubmit = () => {
-    onSubmit && onSubmit();
+  const handleSubmit = (values) => {
+    onSubmit && onSubmit(values);
     closeModal();
   };
 

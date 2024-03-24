@@ -12,13 +12,7 @@ function useRegistration() {
   const { mutate, isLoading, isError,error } = useMutation((data) => register(data),
    {
     onSuccess: (data) => {
-      // navigate('/login');
       setSuccess(true)
-      // Store token in localStorage or sessionStorage
-    //   authentication();
-    //   localStorage.setItem('token', data.accessToken);
-    //   // Invalidate queries to trigger refetch of data
-    //   queryClient.invalidateQueries('userData');
     }
   });
 
