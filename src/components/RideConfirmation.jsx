@@ -76,7 +76,7 @@ const RideConfirmation = ({ formValues, price, onClick }) => {
         </div>
       </div>
 
-      <div class="flex flex-col space-y-5">
+      <div className="flex flex-col space-y-5">
         <div className="flex flex-col justify-center font-semibold text-xl space-y-2 md:text-2xl text-accent1">
          { time?.split(":").shift() >= 21 || time?.split(":").shift() <=5  ?
          ( <div className="flex justify-center font-semibold text-xs md:text-xs text-gray-500">
@@ -90,7 +90,7 @@ const RideConfirmation = ({ formValues, price, onClick }) => {
         </div>
         <button
           onClick={onClick}
-          class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-accent1 hover:bg-green-500 focus:outline-none text-white text-sm shadow-sm"
+          className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-accent1 hover:bg-green-500 focus:outline-none text-white text-sm shadow-sm"
           >
           Confirm
         </button>
