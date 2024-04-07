@@ -12,12 +12,3 @@ RUN npm install
 
 # Copy the rest of the application code to the working directory
 COPY . .
-
-# Build the React app
-RUN npm run build
-
-# Expose the port on which the React app runs
-EXPOSE 5173
-
-# Set the command to run the React app
-CMD ["npm", "run", "dev"]

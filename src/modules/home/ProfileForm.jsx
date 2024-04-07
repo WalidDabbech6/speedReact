@@ -16,7 +16,7 @@ const schema = yup
   .required();
 
 const ProfileForm = ({ onClick }) => {
-  const {currentUser} = useAuth()
+  const {currentUser} = useAuth();
   const {
     register,
     handleSubmit,
@@ -100,7 +100,7 @@ const ProfileForm = ({ onClick }) => {
         </div>
         <button
           type="submit"
-          class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-2 bg-primary hover:bg-blue-700 focus:outline-none text-white text-sm shadow-sm"
+          className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-2 bg-primary hover:bg-blue-700 focus:outline-none text-white text-sm shadow-sm"
         >
           Confirm
         </button>

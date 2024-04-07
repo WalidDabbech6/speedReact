@@ -6,8 +6,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from './context/AuthContext';
 import { Link } from 'react-router-dom';
-import AuthLayout from './AuthLayout';
-import pages from "./page"
 
 const validationSchema = yup
 .object({

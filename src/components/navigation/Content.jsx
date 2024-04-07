@@ -1,5 +1,7 @@
-import {useEffect, useState} from "react"
-import {useResolvedPath} from "react-router-dom"
+/* eslint-disable */
+
+import {useEffect, useState} from "react";
+import {useResolvedPath} from "react-router-dom";
 
 const Content = ({ children }) => {
   const match =  useResolvedPath("").pathname;

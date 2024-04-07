@@ -1,21 +1,42 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2021: true },
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
+    'plugin:react/recommended'
+
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  parserOptions: { ecmaVersion: 12, ecmaFeatures: {'jsx':true},sourceType:"module" },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  plugins: [
+    "react",
+    "unused-imports"
+  ],
   rules: {
-    'react/jsx-no-target-blank': 'off',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'indent': "off",
+    'linebreak-style': "off",
+    'quotes': "off",
+    "unused-imports/no-unused-imports": "warn", // Change severity to warn
+    "react/jsx-no-undef": [
+      "warn",
+      { "allowGlobals": true } // Avoids errors for undeclared React in JSX
     ],
+    "react/jsx-no-duplicate-props": [
+      "warn",
+      { "ignoreCase": true } // Avoids errors for duplicate props in JSX
+    ],
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/prop-types": "off", // Disable prop-types check if not needed
+    "react/react-in-jsx-scope": "off", // Disable React import requirement for Next.js
+    "react/no-children-prop": "off", // Disable warning about using `children` prop
+    "react/no-danger": "off", // Disable warning about using dangerouslySetInnerHTML
+    "react/no-unescaped-entities": "off", // Disable warning about unescaped HTML entities
+    "no-unused-vars": "warn",
+    "react/no-unknown-property":"warn",
+    "semi":"off"
+    
+
   },
 }

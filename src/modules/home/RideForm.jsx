@@ -19,12 +19,10 @@ const validationSchema = yup
   .required();
 const RideForm = ({onSubmitForm,setRideFormValues}) => {
   const {
-    register,
     control,
     handleSubmit,
     setValue,
     watch,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -35,14 +33,14 @@ const RideForm = ({onSubmitForm,setRideFormValues}) => {
       time: undefined,
     },
   });
-  const { mutate,isLoading,success } = useGetPrice(onSubmitForm);
+  const { mutate,isLoading } = useGetPrice(onSubmitForm);
 
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) =>
       console.log(value, name, type)
-    )
-    return () => subscription.unsubscribe()
-  }, [watch])
+    );
+    return () => subscription.unsubscribe();
+  }, [watch]);
   
  
   const [date, setDate] = useState({
@@ -60,15 +58,15 @@ const RideForm = ({onSubmitForm,setRideFormValues}) => {
   };
 
   const [origin, setOrigin] = useState();
-  const [originList,setOriginList] = useState(orgins)
-  const [destinationList,setDestinationList] = useState(destinations)
+  const [originList,setOriginList] = useState(orgins);
+  const [destinationList,setDestinationList] = useState(destinations);
 
   const [destination, setDestination] = useState();
 
   const handleChangeOrigin = (value) => {
     if (!value) {
-      setOriginList(orgins)
-      setOrigin(undefined)
+      setOriginList(orgins);
+      setOrigin(undefined);
 
     }
     setValue("origin", undefined, { shouldValidate: true });
@@ -77,41 +75,41 @@ const RideForm = ({onSubmitForm,setRideFormValues}) => {
   };
 
 useEffect(() => {
-  if (!origin && !destination) return
+  if (!origin && !destination) return;
   if (destination?.value === "TUN" && orgins.value === "TUN") {
-    setOrigin(undefined)
-    setDestination(undefined)
+    setOrigin(undefined);
+    setDestination(undefined);
     setValue("destination", undefined, { shouldValidate: true });
     setValue("origin", undefined, { shouldValidate: true });
 
 
   }
   if (destination?.value  === "TUN" ){
-    setOriginList(orgins.slice(1))
+    setOriginList(orgins.slice(1));
   }
   else if (destination?.value !== "TUN" ){
-    setOriginList(orgins.slice(0,1))
+    setOriginList(orgins.slice(0,1));
     
   }
   if (origin?.value === "TUN"){
 
-    setDestinationList(destinations.slice(1))
+    setDestinationList(destinations.slice(1));
   }
   else if (origin?.value !== "TUN"){
-    setDestinationList(destinations.slice(0,1))
+    setDestinationList(destinations.slice(0,1));
     
   }
   return () => {
     
-  }
-}, [origin,destination])
+  };
+}, [origin,destination]);
 
 
 
   const handleChangeDestination = (value) => {
     if (!value) {
-      setDestinationList(orgins)
-      setDestination(undefined)
+      setDestinationList(orgins);
+      setDestination(undefined);
     }
     setValue("destination", undefined, { shouldValidate: true });
     if (value) setValue("destination", value.value, { shouldValidate: true });
@@ -121,11 +119,11 @@ useEffect(() => {
   const onTimeChange = (value) => {
     // setValue("time", undefined, { shouldValidate: true });
     if (value) setValue("time", value, { shouldValidate: true });
-  }
+  };
 
   const onSubmit = (values) => {
-    mutate(values)
-    setRideFormValues({...values})
+    mutate(values);
+    setRideFormValues({...values});
   };
 
   return (
@@ -144,6 +142,7 @@ useEffect(() => {
               control={control}
               render={({ field }) => (
                 <Select
+                  // eslint-disable-next-line
                   {...(({ ref, ...other }) => other)(field)}
                   primaryColor={"blue"}
                   isSearchable
@@ -173,6 +172,7 @@ useEffect(() => {
               control={control}
               render={({ field }) => (
                 <Select
+                  // eslint-disable-next-line
                   {...(({ ref, ...other }) => other)(field)}
                   primaryColor={"blue"}
                   isSearchable
@@ -202,6 +202,7 @@ useEffect(() => {
             control={control}
             render={({ field }) => (
               <Datepicker
+              // eslint-disable-next-line
                 {...(({ ref, ...other }) => other)(field)}
                 toggleClassName="absolute  outline outline-1 bg-accent3 rounded-r-lg text-primary right-0 h-full px-3 text-primary-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
                 containerClassName="relative rounded-l-lg rounded-r-lg ring-2 ring-primary focus:ring-0 focus:outline-none focus:border-none"
@@ -238,6 +239,7 @@ useEffect(() => {
             control={control}
             render={({ field }) => (
               <TimePicker
+                // eslint-disable-next-line
                 {...(({ ref,onChange, ...other }) => other)(field)}
                 onTimeChange={onTimeChange}
                
@@ -251,7 +253,7 @@ useEffect(() => {
             </span>
             
           )}
-                <div class="my-2 flex mt-2 text-red-800 text-xs italic"><span id="span-input-value"></span></div>
+                <div className="my-2 flex mt-2 text-red-800 text-xs italic"><span id="span-input-value"></span></div>
         </div>
         <div>
           <button

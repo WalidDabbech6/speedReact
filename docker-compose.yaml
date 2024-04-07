@@ -1,15 +1,19 @@
 version: "3"
-
 services:
   speed-app:
     build:
       context: .
+      dockerfile: Dockerfile
+    container_name: speed-app
+    restart: always
     volumes:
-      - ./public:/app/public
-      - ./src:/app/src
-      - ./package.json:/app/package.json
+      - ./public:/usr/src/app/public
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+      - ./node_modules:/usr/src/app/node_modules
     env_file:
       - ./.env
     ports:
-      - "5173:5173"
+      - "4200:4200"
+    command: "npm run dev"
     tty: true

@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
 import pages from "./page";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import rootRoutes from "../../routes"
+import rootRoutes from "../../routes";
 import { useAuth } from "./context/AuthContext";
-const AuthLayout = ({ children }) => {
+const AuthLayout = () => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  const {isAuthenticated} = useAuth()
-  const navigate = useNavigate()
-
-  useEffect(()=>{
-
-    if (isAuthenticated){
-      navigate(rootRoutes.home.path)
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(rootRoutes.home.path);
     }
-  },[isAuthenticated]);
+  }, [isAuthenticated]);
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
@@ -29,11 +27,11 @@ const AuthLayout = ({ children }) => {
           {/* <Route path={rootRoutes.auth.path} element={rootRoutes.auth.element}> */}
           {Object.keys(pages).map((key, i) => (
             <Route key={i} {...pages[key]} />
-            ))}
-      <Route
-        path="*"
-        element={<Navigate to={pages.login.path} replace />}
-       />
+          ))}
+          <Route
+            path="*"
+            element={<Navigate to={pages.login.path} replace />}
+          />
         </Routes>
       </div>
     </div>

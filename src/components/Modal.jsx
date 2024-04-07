@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Close from './Close';
 
 const Modal = ({ isOpen,title="",setIsOpen, onClose, onSubmit ,children}) => {
@@ -31,7 +31,7 @@ const Modal = ({ isOpen,title="",setIsOpen, onClose, onSubmit ,children}) => {
                 </button> */}
                 <div className='flex flex-row  justify-between  border-b'>
 
-              <div class="font-semibold text-xl mx-4 my-5 md:text-2xl lg:text-2xl">
+              <div className="font-semibold text-xl mx-4 my-5 md:text-2xl lg:text-2xl">
                 {title}
               </div>
               <Close onClick={closeModal}/>

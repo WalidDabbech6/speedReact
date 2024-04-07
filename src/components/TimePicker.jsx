@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Input, Timepicker, initTE } from "tw-elements";
 
 const TimePicker = (props) => {
@@ -8,7 +8,7 @@ const TimePicker = (props) => {
     initTE({ Input });
 
     const timepickerValue = document.querySelector("#timepicker-value");
-    const tminputValue = new Timepicker(timepickerValue);
+    new Timepicker(timepickerValue);
     timepickerValue.addEventListener("input.te.timepicker", (input) => {
       props.onTimeChange(input.target.value);
       const valueDiv = document.querySelector("#span-input-value");
