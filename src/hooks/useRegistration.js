@@ -1,18 +1,28 @@
 import { useMutation,useQueryClient } from "react-query";
 import { register } from "../utils/api";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function useRegistration() {
 
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
-	const [success, setSuccess] = useState(false);
 
-	const { mutate, isLoading, isError,error } = useMutation((data) => register(data),
+	const { mutate, isLoading, isError,error,isSuccess } = useMutation((data) => register(data),
 		{
 			onSuccess: (data) => {
-				setSuccess(true);
+				toast.success("Votre compte a été créé avec succès !",
+				 {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					draggable: true,
+					progress: undefined,
+					theme: "dark",
+					transition: Bounce,
+				});
 			}
 		});
 
@@ -24,7 +34,7 @@ function useRegistration() {
 		isLoading,
 		isError,
 		error,
-		success
+		isSuccess
 	};
 }
 

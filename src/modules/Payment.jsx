@@ -1,4 +1,5 @@
 import React from "react";
+import InputMask from 'react-input-mask';
 
 const Payment = () => {
   return (
@@ -8,45 +9,60 @@ const Payment = () => {
           <h4 className="text-3xl text-gray-700 mb-5">Payment information</h4>
           <div className="p-10 rounded-md shadow-md bg-white">
             <div className="mb-6">
-              <label className="block mb-3 text-gray-600" htmlFor="">
+              <label className="block mb-3 text-start text-gray-600" htmlFor="">
                 Name on card
               </label>
               <input
+                placeholder="FirstName LastName"
                 type="text"
                 className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider"
               />
             </div>
             <div className="mb-6">
-              <label className="block mb-3 text-gray-600" htmlFor="">
+              <label className="block text-start mb-3 text-gray-600" htmlFor="">
                 Card number
               </label>
-              <input
+             <InputMask mask="9999 9999 9999" placeholder="____ ____ ____ ____"> 
+              {(props)=><input
+                {...props}
                 type="tel"
                 className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest"
-              />
+              />}
+             </InputMask>
             </div>
             <div className="mb-6 flex flex-wrap -mx-3w-full">
-              <div className="w-2/3 px-3">
-                <label className="block mb-3 text-gray-600" htmlFor="">
+              <div className="w-2/3">
+                <label className="block text-start mb-3 text-gray-600" htmlFor="">
                   Expiraion date
                 </label>
-                <div className="flex">
-                  <select className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest mr-6">
-                    <option>Month</option>
-                  </select>
-                  <select className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest">
-                    <option>Year</option>
-                  </select>
-                </div>
-              </div>
-              <div className="w-1/3 px-3">
-                <label className="block mb-3 text-gray-600" htmlFor="">
-                  CVC
-                </label>
-                <input
+                <div className="flex gap-2">
+                <InputMask mask="99" placeholder="__"> 
+                  {(props)=> <input
+                  {...props}
                   type="tel"
                   className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest"
-                />
+                />}
+                </InputMask>
+                <InputMask mask="99" placeholder="__"> 
+                  {(props)=> <input
+                  {...props}
+                  type="tel"
+                  className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest"
+                />}
+                </InputMask>
+                </div>
+              </div>
+              <div className="w-1/3 pl-3">
+                <label className="block text-start mb-3 text-gray-600" htmlFor="">
+                  CVC
+                </label>
+                <InputMask mask="999" placeholder="___"> 
+                  {(props)=> <input
+                  {...props}
+                  type="tel"
+                  className="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest"
+                />}
+                </InputMask>
               </div>
             </div>
             <div className="mb-6 text-right">

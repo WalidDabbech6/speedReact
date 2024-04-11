@@ -7,7 +7,8 @@ import * as yup from 'yup';
 
 const schema = yup
   .object({
-    otp: yup.string().matches(/^\d+$/, 'Must be a number').length(4, 'Must be exactly 6 characters'),
+    otp: yup.string().matches(/^\d+$/, 'Must be a number').length(4, 'Must be exactly 4 characters'),
+    // month: yup.string().matches(/^(0?[1-9]|1[012])$/,'barra nayek').required()
   })
   .required();
 const OtpInput = ({ onChange,numInputs }) => {

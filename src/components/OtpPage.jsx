@@ -1,6 +1,6 @@
 import React from "react";
 
-const OtpPage = ({ children, onClick }) => {
+const OtpPage = ({ children, onClick,isError,error,success,email }) => {
   return (
     <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
       <div className="flex flex-col items-center justify-center text-center space-y-2">
@@ -8,12 +8,11 @@ const OtpPage = ({ children, onClick }) => {
           <p>Email Verification</p>
         </div>
         <div className="flex flex-row text-sm font-medium text-gray-400">
-          <p>We have sent a code to your email ba**@dipainhouse.com</p>
+          <p>We have sent a code to your email {email}</p>
         </div>
       </div>
 
       <div>
-        {/* <form action="" method="post"> */}
         <div className="flex flex-col space-y-16">
           {children}
 
@@ -23,11 +22,13 @@ const OtpPage = ({ children, onClick }) => {
                 onClick={onClick}
                 className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-primary hover:bg-blue-700 focus:outline-none text-white text-sm shadow-sm"
               >
-                Verify Account
+                {success ? 'Go to login Page' : 'Verify Account'}
               </button>
             </div>
-
-            <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
+            {isError && (
+          <div className="text-center text-red-500 text-sm mt-2">{error.message}</div>
+        )}
+            {/* <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
               <p>Didn't recieve code?</p>{" "}
               <a
                 className="flex flex-row items-center text-blue-600"
@@ -37,10 +38,10 @@ const OtpPage = ({ children, onClick }) => {
               >
                 Resend
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
-        {/* </form> */}
+        
       </div>
     </div>
   );

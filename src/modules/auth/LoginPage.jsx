@@ -4,8 +4,8 @@ import LoadingModal from '../../components/LoadingModal'
 import useLogin from '../../hooks/useLogin';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuth } from './context/AuthContext';
 import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner';
 
 const validationSchema = yup
 .object({
@@ -20,9 +20,6 @@ function LoginPage() {
 
 
   const {mutate,isLoading,isError,error} = useLogin();
-  const {isAuthenticated} = useAuth()
-
-
   const onSubmit = (data) => {
     mutate(data);
   };
@@ -74,7 +71,7 @@ function LoginPage() {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing In...' : 'Sign In'}
+                {isLoading ? <div className='flex justify-center'><Spinner/>  Signing In... </div> : 'Sign In'}
               </button>
               <a className="inline-block text-sm text-primary hover:text-blue-800" href="#">
                 Forgot Password?

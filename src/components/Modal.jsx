@@ -1,7 +1,7 @@
 import React from 'react';
 import Close from './Close';
 
-const Modal = ({ isOpen,title="",setIsOpen, onClose, onSubmit ,children}) => {
+const Modal = ({ isOpen,title="",success,setIsOpen, onClose, onSubmit ,children}) => {
 
   
   const closeModal = () => {
@@ -11,7 +11,7 @@ const Modal = ({ isOpen,title="",setIsOpen, onClose, onSubmit ,children}) => {
 
   const handleSubmit = (values) => {
     onSubmit && onSubmit(values);
-    closeModal();
+    success && closeModal();
   };
 
 

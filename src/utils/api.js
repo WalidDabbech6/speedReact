@@ -30,6 +30,15 @@ export const register = async (data) => {
 	}
 };
 
+export const verifyAccount = async (data) => {
+	try {
+		const response = await axiosInstance.post("/verify", {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
 
 export const updateProfile = async (data) => {
 	let headers = {};
@@ -45,10 +54,36 @@ export const updateProfile = async (data) => {
 	}
 };
 
+export const bookRide = async (data) => {
+	let headers = {};
+	headers["Authorization"] = localStorage.getItem("token");
+
+	try {
+		const response = await axiosInstance.post("/bookings", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
 
 export const getPrice = async (data) => {
 	try {
 		const response = await axiosInstance.post("/rides", {...data});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
+
+export const getBookingHistory = async () => {
+	let headers = {};
+	headers["Content-Type"] = "multipart/form-data";
+	headers["Authorization"] = localStorage.getItem("token");
+
+	try {
+		const response = await axiosInstance.get("/bookings",{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);

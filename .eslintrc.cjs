@@ -35,7 +35,8 @@ module.exports = {
     "react/no-unescaped-entities": "off", // Disable warning about unescaped HTML entities
     "no-unused-vars": "warn",
     "react/no-unknown-property":"warn",
-    "semi":"off"
+    "semi":"off",
+    "no-mixed-spaces-and-tabs":"off"
     
 
   },
