@@ -40,6 +40,7 @@ const RideHistory = () => {
         createdAt={item.created_at}
         bookingTime={item.booking_time}
         date={item.date}
+        payed={item.payed}
         price={item.price}
       />
     ))}{" "}

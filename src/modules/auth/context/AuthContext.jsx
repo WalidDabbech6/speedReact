@@ -6,7 +6,6 @@ export function AuthProvider({ children }) {
 
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('token') ?  true :false);
   const [currentUser,setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')))
-  console.log(currentUser)
   const authentication = (user) => {
     setIsAuthenticated(true);
     setCurrentUser(user)

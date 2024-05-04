@@ -3,8 +3,10 @@ import { bookRide, updateProfile } from "../utils/api";
 import { useAuth } from "../modules/auth/context/AuthContext";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate } from "react-router-dom";
 function useBookRide() {
+	const navigate = useNavigate();
+
 	const { mutate, isLoading, isError, error,isSuccess } = useMutation(
 		(data) => bookRide(data),
 		{
@@ -19,6 +21,7 @@ function useBookRide() {
 					theme: "dark",
 					transition: Bounce,
 				});
+				navigate(`/payment/${data.id}`)
 			},
 		}
 	);

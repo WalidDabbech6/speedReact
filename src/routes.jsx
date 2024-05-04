@@ -4,6 +4,8 @@ const AuthLayout = lazy(()=> import ("./modules/auth/AuthLayout"))
 const HomePage = lazy(()=> import("./modules/home/Home"))
 const RideHistoryPage = lazy(()=> import("./modules/home/RideHistory"))
 const PaymentPage = lazy(()=> import("./modules/Payment"))
+const SuccessPage = lazy(()=> import("./modules/Success"))
+const FailPage = lazy(()=> import("./modules/Fail"))
 
 const Logout = lazy(() =>  import("./modules/auth/Logout"))
 
@@ -21,8 +23,16 @@ export default {
       element:<RideHistoryPage/>
     },
     payment:{
-      path:"/payment",
+      path:"/payment/:orderId",
       element:<PaymentPage/>
+    },
+    success:{
+      path:"/success",
+      element:<SuccessPage/>
+    },
+    fail:{
+      path:"/fail",
+      element:<FailPage/>
     },
     logout: {
       path: "/logout",

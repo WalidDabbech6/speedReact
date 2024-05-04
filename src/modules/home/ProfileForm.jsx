@@ -12,6 +12,7 @@ const schema = yup
       .required("Email is required"),
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
+    phone: yup.string().required()
   })
   .required();
 
@@ -25,6 +26,7 @@ const ProfileForm = ({ onClick }) => {
       email: currentUser.email,
       firstName: currentUser.first_name,
       lastName: currentUser.last_name,
+      phone: currentUser.phone
   } });
 
   return (
@@ -97,7 +99,30 @@ const ProfileForm = ({ onClick }) => {
               </span>
             )}
           </div>
+          {/* phone */}
+          <div>
+            <label
+              htmlFor="phone"
+              className="flex text-gray-700 text-sm font-bold mb-2"
+            >
+              Phone
+            </label>
+            <input
+              {...register("phone")}
+              id="phone"
+              type="text"
+              autoComplete="phone"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Phone"
+            />
+            {errors.phone && (
+              <span className="flex text-red-500 text-xs italic">
+                {errors.phone.message}
+              </span>
+            )}
+          </div>
         </div>
+        
         <button
           type="submit"
           className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-2 bg-primary hover:bg-blue-700 focus:outline-none text-white text-sm shadow-sm"

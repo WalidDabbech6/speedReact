@@ -11,6 +11,22 @@ const axiosInstance = axios.create({
 	},
 });
 
+
+axiosInstance.interceptors.response.use(
+	response => {
+	  // If response is OK, return it
+	  return response;
+	},
+	error => {
+	  // If response status is 401, logout
+	  if (error.response && error.response.status === 401) {
+		window.location.href='/logout' // Call your logout function
+	  }
+	  // Pass the error along
+	  return Promise.reject(error);
+	}
+  );
+
 // Define functions to make specific API requests
 export const login = async (credentials) => {
 	try {
@@ -84,6 +100,47 @@ export const getBookingHistory = async () => {
 
 	try {
 		const response = await axiosInstance.get("/bookings",{headers:headers});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
+
+export const getBookingOrder = async (orderId) => {
+	let headers = {};
+	headers["Content-Type"] = "multipart/form-data";
+	headers["Authorization"] = localStorage.getItem("token");
+
+	try {
+		const response = await axiosInstance.get(`/bookings/${orderId}/`,{headers:headers});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
+
+
+export const makePayment = async (data) => {
+	let headers = {};
+	headers["Authorization"] = localStorage.getItem("token");
+
+	try {
+		const response = await axiosInstance.post("/make-payment", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
+		return response.data;
+	} catch (error) {
+		throw new Error(error.response.data.message);
+	}
+};
+
+
+export const verifyPayment = async (paymentRef) => {
+	let headers = {};
+	headers["Authorization"] = localStorage.getItem("token");
+
+	try {
+		const response = await axiosInstance.get(`/verify-payment/${paymentRef}`,{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
