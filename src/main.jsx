@@ -12,6 +12,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "./modules/auth/context/AuthContext.jsx";
 const queryClient = new QueryClient();
 import rootRoutes from "./routes.jsx";
+import privateRoutes from "./privateRoutes.jsx"
+import PrivateRoute from "./components/navigation/PrivateRoute.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
@@ -20,6 +22,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <Routes>
+            <Route element={<PrivateRoute />}>
+            {Object.keys(privateRoutes).map((key, i) => (
+          <Route
+            key={i}
+            path={privateRoutes[key].path}
+            element={privateRoutes[key].component}
+          />
+        ))}
+      </Route>
               {Object.keys(rootRoutes).map((key, i) => (
                 <Route key={i} {...rootRoutes[key]} />
               ))}

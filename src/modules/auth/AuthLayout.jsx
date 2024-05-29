@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import pages from "./page";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import rootRoutes from "../../routes";
+import privateRoutes from "../../privateRoutes";
 import { useAuth } from "./context/AuthContext";
 const AuthLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -9,7 +9,7 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(rootRoutes.home.path);
+      navigate(privateRoutes.home.path);
     }
   }, [isAuthenticated]);
 

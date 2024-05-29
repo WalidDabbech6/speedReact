@@ -11,6 +11,7 @@ services:
       - ./src:/usr/src/app/src
       - ./package.json:/usr/src/app/package.json
       - ./node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
     env_file:
       - ./.env
     ports:
