@@ -1,10 +1,10 @@
 version: "3"
 services:
-  speed-app:
+  speed-app-1:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: speed-app
+    container_name: speed-app-1
     restart: always
     volumes:
       - ./public:/usr/src/app/public
@@ -16,5 +16,30 @@ services:
       - ./.env
     ports:
       - "4200:4200"
+    environment:
+      - VITE_PORT=4200
+      - BASE_URL=https://olataxi24.com/api 
+    command: "npm run dev"
+    tty: true
+
+  speed-app-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: speed-app-2
+    restart: always
+    volumes:
+      - ./public:/usr/src/app/public
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+      - ./node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
+    env_file:
+      - ./.env
+    ports:
+      - "4201:4201"
+    environment:
+      - VITE_PORT=4201
+      - BASE_URL=https://olataxi24.tn/api 
     command: "npm run dev"
     tty: true

@@ -16,7 +16,7 @@ export default defineConfig({
     hmr:{
       overlay:false
     },
-    port: 4200, // This is the port which we will use in docker
+    port: process.env.VITE_PORT , // Use environment variable VITE_PORT or default to 3000
     // Thanks @sergiomoura for the window fix
     // add the next lines if you're using windows and hot reload doesn't work
      watch: {

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { objectToFormData } from "../helpers/ObjectToFormData";
 import _ from "lodash";
+import {getEnv} from "../helpers/EnvHelpers"
 
-const baseURL = "https://olataxi24.com/api"; // Replace this with your actual API URL
+const baseURL = getEnv("BASE_URL")
 
 const axiosInstance = axios.create({
 	baseURL,
@@ -30,7 +31,7 @@ axiosInstance.interceptors.response.use(
 // Define functions to make specific API requests
 export const login = async (credentials) => {
 	try {
-		const response = await axiosInstance.post("/login", {...credentials});
+		const response = await axiosInstance.post("api/login", {...credentials});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -39,7 +40,7 @@ export const login = async (credentials) => {
 
 export const register = async (data) => {
 	try {
-		const response = await axiosInstance.post("/register", {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
+		const response = await axiosInstance.post("api/register", {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -48,7 +49,7 @@ export const register = async (data) => {
 
 export const verifyAccount = async (data) => {
 	try {
-		const response = await axiosInstance.post("/verify", {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
+		const response = await axiosInstance.post("api/verify", {..._.mapKeys(data, (value, key) => _.snakeCase(key))});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -63,7 +64,7 @@ export const updateProfile = async (data) => {
 
 	let payload = objectToFormData(_.mapKeys(data, (value, key) => _.snakeCase(key)));
 	try {
-		const response = await axiosInstance.patch("/updateProfile", payload,{headers:headers});
+		const response = await axiosInstance.patch("api/updateProfile", payload,{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -75,7 +76,7 @@ export const bookRide = async (data) => {
 	headers["Authorization"] = localStorage.getItem("token");
 
 	try {
-		const response = await axiosInstance.post("/bookings", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
+		const response = await axiosInstance.post("api/bookings", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -85,7 +86,7 @@ export const bookRide = async (data) => {
 
 export const getPrice = async (data) => {
 	try {
-		const response = await axiosInstance.post("/rides", {...data});
+		const response = await axiosInstance.post("api/rides", {...data});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -99,7 +100,7 @@ export const getBookingHistory = async () => {
 	headers["Authorization"] = localStorage.getItem("token");
 
 	try {
-		const response = await axiosInstance.get("/bookings",{headers:headers});
+		const response = await axiosInstance.get("api/bookings",{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -113,7 +114,7 @@ export const getBookingOrder = async (orderId) => {
 	headers["Authorization"] = localStorage.getItem("token");
 
 	try {
-		const response = await axiosInstance.get(`/bookings/${orderId}/`,{headers:headers});
+		const response = await axiosInstance.get(`api/bookings/${orderId}/`,{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -127,7 +128,7 @@ export const makePayment = async (data) => {
 	headers["Authorization"] = localStorage.getItem("token");
 
 	try {
-		const response = await axiosInstance.post("/make-payment", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
+		const response = await axiosInstance.post("api/make-payment", _.mapKeys(data, (value, key) => _.snakeCase(key)),{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
@@ -140,7 +141,7 @@ export const verifyPayment = async (paymentRef) => {
 	headers["Authorization"] = localStorage.getItem("token");
 
 	try {
-		const response = await axiosInstance.get(`/verify-payment/${paymentRef}`,{headers:headers});
+		const response = await axiosInstance.get(`api/verify-payment/${paymentRef}`,{headers:headers});
 		return response.data;
 	} catch (error) {
 		throw new Error(error.response.data.message);
